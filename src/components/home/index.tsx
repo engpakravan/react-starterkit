@@ -1,5 +1,3 @@
-import {memo} from "react";
-import {areEqual} from "@web/utils";
 import styles from "./styles.module.scss"
 
 type Props = {
@@ -17,4 +15,4 @@ const HomeComponent = (props: Props) => {
     );
 };
 
-export default memo(HomeComponent,areEqual);
+export default HomeComponent;

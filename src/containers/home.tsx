@@ -1,20 +1,21 @@
 import HomeComponent from "../components/home";
-import {useAsync} from "@web/hooks";
-import {useEffect} from "react";
-import i18next from "i18next";
+import {useQuery} from "react-query";
 
 export const Home = () => {
-    const myAsyncFun = useAsync<string>();
 
-    useEffect(() => {
-        myAsyncFun.run(new Promise<any>((resolve) => {
+    const {isLoading , isError , data} = useQuery("todos" , () => {
+        return new Promise((resolve , reject) => {
             setTimeout(() => {
-                resolve(i18next.t("welcome") + "asdsadas")
-            } , 1000)
-        }))
-    } , [])
+                resolve("I Fetched !")
+            } , 3000)
+        })
+    })
 
     return (
-        <HomeComponent homeData={myAsyncFun.data}/>
+        <>
+            {isLoading && <h1>Loading...</h1>}
+            {isError && <h1>Errored...</h1>}
+            <HomeComponent homeData={data as string}/>
+        </>
     );
 };
